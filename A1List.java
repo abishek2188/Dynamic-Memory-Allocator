@@ -52,18 +52,18 @@ public class A1List extends List {
             }
             current=current.next;
         }
-        A1List current = this;
-        while (current.prev !=null){
-            if (current.key==k){
-                if (current.address==d.address && current.size==d.size){
-                    A1List temp=current.prev;
-                    A1List temp1=current.next;
+        A1List current1 = this;
+        while (current1.prev !=null){
+            if (current1.key==k){
+                if (current1.address==d.address && current1.size==d.size){
+                    A1List temp=current1.prev;
+                    A1List temp1=current1.next;
                     temp.next=temp1;
                     temp1.prev=temp;
                     return true;
                 }
             }
-            current=current.prev;
+            current1=current1.prev;
         }
         return false;
     }
@@ -78,12 +78,12 @@ public class A1List extends List {
                 }
                 current=current.next;
             }
-            A1List current = this;
-            while (current.prev != null){
-                if (current.key==k){
-                    return current;
+            A1List current1 = this;
+            while (current1.prev != null){
+                if (current1.key==k){
+                    return current1;
                 }
-                current=current.prev;
+                current1=current1.prev;
             }
         }
         else{
@@ -94,12 +94,12 @@ public class A1List extends List {
                 }
                 current=current.next;
             }
-            A1List current = this;
-            while (current.prev != null){
-                if (current.key <= k){
-                    return current;
+            A1List current1 = this;
+            while (current1.prev != null){
+                if (current1.key <= k){
+                    return current1;
                 }
-                current=current.prev;
+                current1=current1.prev;
             }
         }
         return null;
