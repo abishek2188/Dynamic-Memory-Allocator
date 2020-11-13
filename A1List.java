@@ -38,6 +38,33 @@ public class A1List extends List {
 
     public boolean Delete(Dictionary d) 
     {
+        int k=d.key;
+        A1List current = this;
+        while (current.next !=null){
+            if (current.key==k){
+                if (current.address==d.address && current.size==d.size){
+                    A1List temp=current.prev;
+                    A1List temp1=current.next;
+                    temp.next=temp1;
+                    temp1.prev=temp;
+                    return true;
+                }
+            }
+            current=current.next;
+        }
+        A1List current = this;
+        while (current.prev !=null){
+            if (current.key==k){
+                if (current.address==d.address && current.size==d.size){
+                    A1List temp=current.prev;
+                    A1List temp1=current.next;
+                    temp.next=temp1;
+                    temp1.prev=temp;
+                    return true;
+                }
+            }
+            current=current.prev;
+        }
         return false;
     }
 
