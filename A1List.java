@@ -134,7 +134,7 @@ public class A1List extends List {
         return true;
     }
 
-    public static <A1list> void main(String[] args){
+    public static void main(String[] args){
         A1List x = new A1List();
         x.Insert(2,3,1);
         x.Insert(3,5,6);
