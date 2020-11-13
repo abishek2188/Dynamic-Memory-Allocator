@@ -120,6 +120,14 @@ public class A1List extends List {
         return true;
     }
 
+    public static <A1list> void main(String[] args){
+        A1List x = new A1List();
+        x.Insert(2,3,1);
+        x.Insert(3,5,6);
+        System.out.println(x.next.address);
+        x.next.next.next.Insert(1,3,4);
+    }
+
 }
 
 
