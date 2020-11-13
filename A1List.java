@@ -32,8 +32,8 @@ public class A1List extends List {
             temp1.prev=this;
             temp1.next=temp;
             temp.prev=temp1;
+            return temp1;
         }
-        return null;
     }
 
     public boolean Delete(Dictionary d) 
