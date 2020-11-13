@@ -22,6 +22,17 @@ public class A1List extends List {
 
     public A1List Insert(int address, int size, int key)
     {
+        if (this.next == null) {
+            throw new RuntimeException("Calling insert on TailSentinel");
+        }
+        else{
+            A1List temp = this.next;
+            A1List temp1= new A1List(assress, size, key);
+            this.next=temp1;
+            temp1.prev=this;
+            temp1.next=temp;
+            temp.prev=temp1;
+        }
         return null;
     }
 
