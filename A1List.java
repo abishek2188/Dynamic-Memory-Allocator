@@ -135,7 +135,13 @@ public class A1List extends List {
         x.Insert(2,3,1);
         x.Insert(3,5,6);
         System.out.println(x.next.address);
-        x.next.next.next.Insert(1,3,4);
+        A1List y=x.Find(2,true);
+        if (y==null){
+            System.out.println("yes");
+        }
+        A1List t= x.Find(6, false);
+        System.out.println(t.address);
+        
     }
 
 }
