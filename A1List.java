@@ -27,7 +27,7 @@ public class A1List extends List {
         }
         else{
             A1List temp = this.next;
-            A1List temp1= new A1List(assress, size, key);
+            A1List temp1= new A1List(address, size, key);
             this.next=temp1;
             temp1.prev=this;
             temp1.next=temp;
