@@ -145,6 +145,9 @@ public class A1List extends List {
         }
         A1List t= x.Find(6, false);
         System.out.println(t.address);
+        x.next.next.next.Delete(t);
+        System.out.println(x.next.address);
+
         
     }
 
