@@ -107,11 +107,21 @@ public class A1List extends List {
 
     public A1List getFirst()
     {
+        A1List current = this;
+        while (current.prev != null){
+            current=current.prev;
+        }
+        if (current.next.next!=null){
+            return current.next;
+        }
         return null;
     }
     
     public A1List getNext() 
     {
+        if (this.next.next!=null){
+            return this.next;
+        }
         return null;
     }
 
