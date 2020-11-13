@@ -70,6 +70,38 @@ public class A1List extends List {
 
     public A1List Find(int k, boolean exact)
     { 
+        if (exact==true){
+            A1List current =this;
+            while (current.next != null){
+                if (current.key==k){
+                    return current;
+                }
+                current=current.next;
+            }
+            A1List current = this;
+            while (current.prev != null){
+                if (current.key==k){
+                    return current;
+                }
+                current=current.prev;
+            }
+        }
+        else{
+            A1List current = this;
+            while (current.next != null){
+                if (current.key <= k){
+                    return current;
+                }
+                current=current.next;
+            }
+            A1List current = this;
+            while (current.prev != null){
+                if (current.key <= k){
+                    return current;
+                }
+                current=current.prev;
+            }
+        }
         return null;
     }
 
