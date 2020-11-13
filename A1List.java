@@ -111,7 +111,7 @@ public class A1List extends List {
         while (current.prev != null){
             current=current.prev;
         }
-        if (current.next!=null){
+        if (current.next.next!=null){
             return current.next;
         }
         return null;
