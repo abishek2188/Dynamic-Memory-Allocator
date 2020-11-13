@@ -147,7 +147,7 @@ public class A1List extends List {
         System.out.println(t.address);
         x.next.next.next.Delete(t);
         System.out.println(x.next.address);
-
+        System.out.println(x.next.next.getFirst().address);
         
     }
 
