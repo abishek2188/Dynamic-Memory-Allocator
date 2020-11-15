@@ -94,13 +94,13 @@ public class A1List extends List {
         }
         else{
             while (current.next != null){
-                if (current.key <= k){
+                if (current.key >= k){
                     return current;
                 }
                 current=current.next;
             }
             while (current1.prev != null){
-                if (current1.key <= k){
+                if (current1.key >= k){
                     return current1;
                 }
                 current1=current1.prev;
