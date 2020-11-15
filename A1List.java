@@ -131,6 +131,38 @@ public class A1List extends List {
 
     public boolean sanity()
     {
+        A1List slow = this;
+        A1List fast = this;
+        while (fast !=null && fast.next != null){
+            fast=fast.next.next;
+            slow=slow.next;
+            if (slow==fast){
+                return false;
+            }
+        }
+        A1List slow1=this;
+        A1List fast1=this;
+        while (fast1 != null && fast1.prev != null){
+            fast1=fast1.prev.prev;
+            slow1=slow1.prev;
+            if (slow1==fast1){
+                return false;
+            }
+        }
+        A1List current = this;
+        while (current.next != null){
+            if (current.next.prev != current){
+                return false;
+            }
+            current=current.next;
+        }
+        A1List current1 = this;
+        while (current1.prev!=null){
+            if (current1.prev.next != current1){
+                return false;
+            }
+            current1=current1.prev;
+        }
         return true;
     }
 
