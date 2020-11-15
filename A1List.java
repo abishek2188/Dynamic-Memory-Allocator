@@ -123,10 +123,10 @@ public class A1List extends List {
     
     public A1List getNext() 
     {
-        if (this.next.next!=null){
-            return this.next;
+        if (this.next == null || this.next.next == null) {
+            return null;
         }
-        return null;
+        return this.next;
     }
 
     public boolean sanity()
