@@ -24,6 +24,9 @@ public class A1DynamicMem extends DynamicMem {
     // Test your memory allocator thoroughly using Doubly Linked lists only (A1List.java).
 
     public int Allocate(int blockSize) {
+        if (blockSize <= 0){
+            return -1;
+        }
         Dictionary x = freeBlk.Find(blockSize, false);
         if (x!=null){
             freeBlk.Delete(x);
