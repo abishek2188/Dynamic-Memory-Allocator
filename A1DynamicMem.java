@@ -46,7 +46,7 @@ public class A1DynamicMem extends DynamicMem {
         Dictionary x = allocBlk.Find(startAddr, true);
         if (x!=null){
             allocBlk.Delete(x);
-            freeBlk.Insert(x.address, x.size, x.key);
+            freeBlk.Insert(x.address, x.size, x.size);
             return 0;
         }
         else{
