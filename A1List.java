@@ -23,7 +23,7 @@ public class A1List extends List {
     public A1List Insert(int address, int size, int key)
     {
         if (this.next == null) {
-            throw new RuntimeException("Calling insert on TailSentinel");
+            return null;
         }
         else{
             A1List temp = this.next;
