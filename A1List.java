@@ -22,17 +22,18 @@ public class A1List extends List {
 
     public A1List Insert(int address, int size, int key)
     {
-        A1List head = this;
-        while (head.prev != null){
-            head = head.prev;
+        if (this.next == null) {
+            throw new RuntimeException("Calling insert on TailSentinel");
         }
-        A1List temp = head.next;
-        A1List temp1= new A1List(address, size, key);
-        head.next=temp1;
-        temp1.prev=head;
-        temp1.next=temp;
-        temp.prev=temp1;
-        return temp1;
+        else{
+            A1List temp = this.next;
+            A1List temp1= new A1List(address, size, key);
+            this.next=temp1;
+            temp1.prev=this;
+            temp1.next=temp;
+            temp.prev=temp1;
+            return temp1;
+        }
     }
 
     public boolean Delete(Dictionary d) 
