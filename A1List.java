@@ -22,18 +22,17 @@ public class A1List extends List {
 
     public A1List Insert(int address, int size, int key)
     {
-        if (this.next == null) {
-            throw new RuntimeException("Calling insert on TailSentinel");
+        A1List head = this;
+        while (head.prev != null){
+            head = head.prev;
         }
-        else{
-            A1List temp = this.next;
-            A1List temp1= new A1List(address, size, key);
-            this.next=temp1;
-            temp1.prev=this;
-            temp1.next=temp;
-            temp.prev=temp1;
-            return temp1;
-        }
+        A1List temp = head.next;
+        A1List temp1= new A1List(address, size, key);
+        head.next=temp1;
+        temp1.prev=head;
+        temp1.next=temp;
+        temp.prev=temp1;
+        return temp1;
     }
 
     public boolean Delete(Dictionary d) 
@@ -70,13 +69,9 @@ public class A1List extends List {
 
     public A1List Find(int k, boolean exact)
     { 
-        A1List current =this;
-        if (current.prev==null){
-            current=current.next;
-        }
-        A1List current1 = this;
-        if (current1.next==null){
-            current1=current1.prev;
+        A1List current =this.getFirst();
+        if (current==null){
+            return null;
         }
         if (exact==true){
             while (current.next != null){
@@ -85,12 +80,6 @@ public class A1List extends List {
                 }
                 current=current.next;
             }
-            while (current1.prev != null){
-                if (current1.key==k){
-                    return current1;
-                }
-                current1=current1.prev;
-            }
         }
         else{
             while (current.next != null){
@@ -98,12 +87,6 @@ public class A1List extends List {
                     return current;
                 }
                 current=current.next;
-            }
-            while (current1.prev != null){
-                if (current1.key >= k){
-                    return current1;
-                }
-                current1=current1.prev;
             }
         }
         return null;
@@ -123,10 +106,10 @@ public class A1List extends List {
     
     public A1List getNext() 
     {
-        if (this.next.next!=null){
-            return this.next;
+        if (this.next == null || this.next.next == null) {
+            return null;
         }
-        return null;
+        return this.next;
     }
 
     public boolean sanity()
