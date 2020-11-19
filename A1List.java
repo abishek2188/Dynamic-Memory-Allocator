@@ -50,6 +50,8 @@ public class A1List extends List {
                     A1List temp1=current.next;
                     temp.next=temp1;
                     temp1.prev=temp;
+                    current.next=null;
+                    current.prev=null;
                     return true;
                 }
             }
@@ -63,6 +65,8 @@ public class A1List extends List {
                     A1List temp1=current1.next;
                     temp.next=temp1;
                     temp1.prev=temp;
+                    current.next=null;
+                    current.prev=null;
                     return true;
                 }
             }
