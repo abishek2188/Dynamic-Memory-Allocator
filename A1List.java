@@ -38,6 +38,9 @@ public class A1List extends List {
 
     public boolean Delete(Dictionary d) 
     {
+        if (d==null){
+            return false;
+        }
         int k=d.key;
         A1List current = this;
         while (current.next !=null){
