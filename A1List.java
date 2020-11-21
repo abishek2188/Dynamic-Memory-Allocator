@@ -43,30 +43,76 @@ public class A1List extends List {
         }
         int k=d.key;
         A1List current = this;
+        if (current.prev==null){
+            current=current.next;
+        }
         while (current.next !=null){
             if (current.key==k){
                 if (current.address==d.address && current.size==d.size){
-                    A1List temp=current.prev;
-                    A1List temp1=current.next;
-                    temp.next=temp1;
-                    temp1.prev=temp;
-                    current.next=null;
-                    current.prev=null;
+                    if (current==this){
+                        if (current.prev.prev==null){
+                            current.address=-1;
+                            current.size=-1;
+                            current.key=-1;
+                            current.prev=null;
+                        }
+                        else{
+                            current.address=current.prev.address;
+                            A1List temp=current.prev;
+                            current.size=temp.size;
+                            current.key=temp.key;
+                            current.prev=temp.prev;
+                            temp.prev.next=current;
+                            temp.next=null;
+                            temp.prev=null;
+                        }
+                    }
+                    else{
+                        A1List temp=current.prev;
+                        A1List temp1=current.next;
+                        temp.next=temp1;
+                        temp1.prev=temp;
+                        current.next=null;
+                        current.prev=null;
+                    }
                     return true;
                 }
             }
             current=current.next;
         }
         A1List current1 = this;
+        if (current1.next==null){
+            current1=current1.prev;
+        }
         while (current1.prev !=null){
             if (current1.key==k){
                 if (current1.address==d.address && current1.size==d.size){
-                    A1List temp=current1.prev;
-                    A1List temp1=current1.next;
-                    temp.next=temp1;
-                    temp1.prev=temp;
-                    current.next=null;
-                    current.prev=null;
+                    if (current1==this){
+                        if (current1.prev.prev==null){
+                            current1.address=-1;
+                            current1.size=-1;
+                            current1.key=-1;
+                            current1.prev=null;
+                        }
+                        else{
+                            current1.address=current1.prev.address;
+                            A1List temp=current1.prev;
+                            current1.size=temp.size;
+                            current1.key=temp.key;
+                            current1.prev=temp.prev;
+                            temp.prev.next=current1;
+                            temp.next=null;
+                            temp.prev=null;
+                        }
+                    }
+                    else{
+                        A1List temp=current1.prev;
+                        A1List temp1=current1.next;
+                        temp.next=temp1;
+                        temp1.prev=temp;
+                        current1.next=null;
+                        current1.prev=null;
+                    }
                     return true;
                 }
             }
@@ -153,6 +199,9 @@ public class A1List extends List {
                 return false;
             }
             current1=current1.prev;
+        }
+        if (current.address != -1 || current.size != -1 || current.key != -1 || current1.address != -1 || current1.size != -1 || current1.key != -1 ){
+            return false;
         }
         return true;
     }
