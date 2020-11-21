@@ -200,6 +200,9 @@ public class A1List extends List {
             }
             current1=current1.prev;
         }
+        if (current.address != -1 || current.size != -1 || current.key != -1 || current1.address != -1 || current1.size != -1 || current1.key != -1 ){
+            return false;
+        }
         return true;
     }
 
