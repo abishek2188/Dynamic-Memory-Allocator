@@ -43,6 +43,9 @@ public class A1List extends List {
         }
         int k=d.key;
         A1List current = this;
+        if (current.prev==null){
+            current=current.next;
+        }
         while (current.next !=null){
             if (current.key==k){
                 if (current.address==d.address && current.size==d.size){
@@ -58,6 +61,9 @@ public class A1List extends List {
             current=current.next;
         }
         A1List current1 = this;
+        if (current1.next==null){
+            current1=current1.prev;
+        }
         while (current1.prev !=null){
             if (current1.key==k){
                 if (current1.address==d.address && current1.size==d.size){
