@@ -48,13 +48,13 @@ public class BSTree extends Tree {
         return false;
     }
 
-    private BSTree findRoot(BSTree node)
+    private BSTree findRoot()
     {
-        if (node.parent == null){
-            return node;
+        if (this.parent == null){
+            return this;
         }
         else{
-            return findRoot(node.parent);
+            return this.parent.findRoot();
         }
     }
 
