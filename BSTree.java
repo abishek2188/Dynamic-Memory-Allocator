@@ -193,6 +193,33 @@ public class BSTree extends Tree {
         
     public BSTree Find(int key, boolean exact)
     { 
+        BSTree current = this.findRoot().right;
+        if (current == null){
+            return null;
+        }
+        if (exact ==true){
+            while(current != null){
+                if (current.key == key){
+                    return current;
+                }
+                else if (current.key > key){
+                    current=current.left;
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        else{
+            while(current != null){
+                if (current.key >= key){
+                    return current;
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
         return null;
     }
 
