@@ -20,7 +20,66 @@ public class BSTree extends Tree {
 
     public BSTree Insert(int address, int size, int key) 
     { 
-        return null;
+        BSTree current = this.findRoot();
+        BSTree temp = new BSTree(address,size,key);
+        BSTree parent = current;
+        while (true){
+            if (current==null){
+                if (parent.key>key){
+                    parent.left = temp;
+                }
+                else if (parent.key<key){
+                    parent.right = temp;
+                }
+                else{
+                    if (parent.address>address){
+                        parent.left = temp;
+                    }
+                    else if (parent.address<address){
+                        parent.right = temp;
+                    }
+                    else{
+                        if (parent.size>size){
+                            parent.left = temp;
+                        }
+                        else if (parent.size<size){
+                            parent.right = temp;
+                        }
+                        else{
+                            return null;
+                        }    
+                    }
+                }
+                temp.parent = parent;
+                return temp;
+            }
+            parent = current;
+            if (current.key>key){
+                current=current.left;
+            }
+            else if (current.key<key){
+                current=current.right;
+            }
+            else{
+                if (current.address>address){
+                    current=current.left;
+                }
+                else if (current.address<address){
+                    current=current.right;
+                }
+                else{
+                    if (current.size>size){
+                        current=current.left;
+                    }
+                    else if (current.size<size){
+                        current=current.right;
+                    }
+                    else{
+                        return null;
+                    }
+                }
+            }
+        }
     }
 
     public boolean Delete(Dictionary e)
