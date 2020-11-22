@@ -20,9 +20,10 @@ public class BSTree extends Tree {
 
     public BSTree Insert(int address, int size, int key) 
     { 
-        BSTree current = this.findRoot();
+        BSTree root = this.findRoot();
+        BSTree parent = root;
         BSTree temp = new BSTree(address,size,key);
-        BSTree parent = current;
+        BSTree current = parent.right;
         while (current != null){
             parent = current;
             if (current.key>key){
@@ -51,7 +52,10 @@ public class BSTree extends Tree {
                 }
             }
         }
-        if (parent.key>key){
+        if (parent == root){
+            parent.right = temp;
+        }
+        else if (parent.key>key){
             parent.left = temp;
         }
         else if (parent.key<key){
