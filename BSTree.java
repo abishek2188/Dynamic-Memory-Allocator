@@ -226,6 +226,9 @@ public class BSTree extends Tree {
     public BSTree getFirst()
     { 
         BSTree current = this;
+        if (current.parent == null){
+            current = current.right;
+        }
         BSTree parent = current;
         while (current != null){
             parent = current;
