@@ -92,7 +92,13 @@ public class BSTree extends Tree {
 
     public BSTree getFirst()
     { 
-        return null;
+        BSTree current = this;
+        BSTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.left;
+        }
+        return parent;
     }
 
     public BSTree getNext()
