@@ -103,6 +103,16 @@ public class BSTree extends Tree {
 
     public BSTree getNext()
     { 
+        if (this.right != null){
+            return this.right.getFirst();
+        }
+        BSTree current = this;
+        while(current.parent != null && current.parent.left != current){
+            current = current.parent;
+        }
+        if (current.parent != null){
+            return current.parent;
+        }
         return null;
     }
 
