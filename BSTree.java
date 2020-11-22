@@ -23,36 +23,7 @@ public class BSTree extends Tree {
         BSTree current = this.findRoot();
         BSTree temp = new BSTree(address,size,key);
         BSTree parent = current;
-        while (true){
-            if (current==null){
-                if (parent.key>key){
-                    parent.left = temp;
-                }
-                else if (parent.key<key){
-                    parent.right = temp;
-                }
-                else{
-                    if (parent.address>address){
-                        parent.left = temp;
-                    }
-                    else if (parent.address<address){
-                        parent.right = temp;
-                    }
-                    else{
-                        if (parent.size>size){
-                            parent.left = temp;
-                        }
-                        else if (parent.size<size){
-                            parent.right = temp;
-                        }
-                        else{
-                            return null;
-                        }    
-                    }
-                }
-                temp.parent = parent;
-                return temp;
-            }
+        while (current != null){
             parent = current;
             if (current.key>key){
                 current=current.left;
@@ -80,6 +51,33 @@ public class BSTree extends Tree {
                 }
             }
         }
+        if (parent.key>key){
+            parent.left = temp;
+        }
+        else if (parent.key<key){
+            parent.right = temp;
+        }
+        else{
+            if (parent.address>address){
+                parent.left = temp;
+            }
+            else if (parent.address<address){
+                parent.right = temp;
+            }
+            else{
+                if (parent.size>size){
+                    parent.left = temp;
+                }
+                else if (parent.size<size){
+                    parent.right = temp;
+                }
+                else{
+                    return null;
+                }    
+            }
+        }
+        temp.parent = parent;
+        return temp;
     }
 
     public boolean Delete(Dictionary e)
