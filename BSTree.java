@@ -86,6 +86,108 @@ public class BSTree extends Tree {
 
     public boolean Delete(Dictionary e)
     { 
+        BSTree root = this.findRoot();
+        BSTree parent = root;
+        BSTree current = parent.right;
+        int address = e.address;
+        int size = e.size;
+        int key = e.key;
+        int direction = 0;  //direction is 0 if current is right child of parent, 1 if current is left child of parent
+        int direction1 = 0; //direction1 for this.delete(this)
+        int direction2;
+        while (current != null){
+            direction2 = direction1;
+            direction1 = direction;
+            parent = current;
+            if (current.key>key){
+                current=current.left;
+                direction = 1;
+            }
+            else if (current.key<key){
+                current=current.right;
+                direction = 0;
+            }
+            else{
+                if (current.address>address){
+                    current=current.left;
+                    direction = 1;
+                }
+                else if (current.address<address){
+                    current=current.right;
+                    direction = 0;
+                }
+                else{
+                    if (current.size>size){
+                        current=current.left;
+                        direction = 1;
+                    }
+                    else if (current.size<size){
+                        current=current.right;
+                        direction = 0;
+                    }
+                    else{
+                        direction1 = direction2;
+                        parent = current.parent;
+                        break;
+                    }
+                }
+            }
+        }
+        if (current != null){
+            if (current.left == null){
+                if (direction == 1){
+                    parent.left = current.right;
+                }
+                else{
+                    parent.right = current.right;
+                }
+            }
+            else if (current.right == null){
+                if (direction == 1){
+                    parent.left = current.left;
+                }
+                else{
+                    parent.right = current.left;
+                }
+            }
+            else{
+                BSTree temp = current.right.getFirst();
+                current.key = temp.key;
+                current.size = temp.size;
+                current.address = temp.address;
+                temp.parent.left = null;
+                //below code for this.delete(this)                
+                if (temp == current.right){
+                    direction1 = direction;
+                }
+                else if(temp == current.right.left){
+                    direction1 = 0;
+                }
+                else{
+                    direction1 = 1;
+                }
+                current = temp;
+
+            }
+            if (this == current){   //code for this.delete(this)
+                parent = current.parent;
+                current.parent = parent.parent;
+                current.key = parent.key;
+                current.left = parent.left;
+                current.right = parent.right;
+                current.address = parent.address;
+                current.size = parent.size;
+                if (parent.parent != null){
+                    if (direction1 == 1){
+                        parent.parent.left = current;
+                    }
+                    else{
+                        parent.parent.right = current;
+                    }
+                }
+            }
+            return true;
+        }
         return false;
     }
         
