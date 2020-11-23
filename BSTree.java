@@ -198,7 +198,7 @@ public class BSTree extends Tree {
             //             parent.parent.right = current;
             //         }
             //     }
-            // }
+            }
             return true;
         }
         return false;
