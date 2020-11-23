@@ -52,4 +52,35 @@ public class A2DynamicMem extends A1DynamicMem {
 
         return ;
     }
+    
+    public int Allocate(int blockSize) {
+        if (blockSize <= 0){
+            return -1;
+        }
+        Dictionary x = freeBlk.Find(blockSize, false);
+        if (x!=null){
+            allocBlk.Insert(x.address, blockSize, x.address);
+            freeBlk.Delete(x);
+            int t = x.size - blockSize;
+            if (t>0){
+                freeBlk.Insert(x.address+blockSize,t,t);
+            }
+            return x.address;
+        }
+        else{
+            return -1;
+        }
+    } 
+    // return 0 if successful, -1 otherwise
+    public int Free(int startAddr) {
+        Dictionary x = allocBlk.Find(startAddr, true);
+        if (x!=null){
+            freeBlk.Insert(x.address, x.size, x.size);
+            allocBlk.Delete(x);
+            return 0;
+        }
+        else{
+            return -1;
+        }
+    }
 }
