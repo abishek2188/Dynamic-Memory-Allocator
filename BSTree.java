@@ -207,9 +207,6 @@ public class BSTree extends Tree {
     public BSTree Find(int key, boolean exact)
     { 
         BSTree current = this.findRoot().right;
-        if (current == null){
-            return null;
-        }
         if (exact ==true){
             while(current != null){
                 if (current.key == key){
