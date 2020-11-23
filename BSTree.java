@@ -134,7 +134,7 @@ public class BSTree extends Tree {
             }
         }
         if (current != null){
-            if (current.left == null){
+            if (current.left == null && current.right == null){
                 if (direction == 1){
                     parent.left = current.right;
                 }
@@ -142,7 +142,17 @@ public class BSTree extends Tree {
                     parent.right = current.right;
                 }
             }
+            else if (current.left == null){
+                current.right.parent = parent;
+                if (direction == 1){
+                    parent.left = current.right;
+                }
+                else{
+                    parent.right = current.right;                    
+                }
+            }
             else if (current.right == null){
+                current.left.parent = parent;
                 if (direction == 1){
                     parent.left = current.left;
                 }
@@ -155,7 +165,10 @@ public class BSTree extends Tree {
                 current.key = temp.key;
                 current.size = temp.size;
                 current.address = temp.address;
-                temp.parent.left = null;
+                temp.parent.left = temp.right;
+                if (temp.right != null){
+                    temp.right.parent = temp.parent;
+                }
                 //below code for this.delete(this)                
                 if (temp == current.right){
                     direction1 = direction;
