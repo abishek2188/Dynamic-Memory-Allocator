@@ -18,10 +18,9 @@ public class A2DynamicMem extends A1DynamicMem {
         BSTree index = new BSTree();
         Dictionary current = freeBlk.getFirst();
         if (current!=null){
-            index.Insert(current.address,current.size,current.address);
             while (current != null){
-                current = current.getNext();
                 index.Insert(current.address,current.size,current.address);
+                current = current.getNext();                
             }
             Dictionary x = index.getFirst();
             int start = x.address;
