@@ -151,7 +151,7 @@ public class BSTree extends Tree {
                 }
             }
             else{
-                BSTree temp = current.right.getFirst();
+                BSTree temp = current.right.getFirst_helper();
                 current.key = temp.key;
                 current.size = temp.size;
                 current.address = temp.address;
@@ -225,7 +225,7 @@ public class BSTree extends Tree {
 
     public BSTree getFirst()
     { 
-        BSTree current = this;
+        BSTree current = this.findRoot().right;
         if (current.parent == null){
             current = current.right;
         }
@@ -240,7 +240,7 @@ public class BSTree extends Tree {
     public BSTree getNext()
     { 
         if (this.right != null){
-            return this.right.getFirst();
+            return this.right.getFirst_helper();
         }
         BSTree current = this;
         while(current.parent != null && current.parent.left != current){
@@ -265,6 +265,20 @@ public class BSTree extends Tree {
         else{
             return this.parent.findRoot();
         }
+    }
+
+    private BSTree getFirst_helper()
+    { 
+        BSTree current = this;
+        if (current.parent == null){
+            current = current.right;
+        }
+        BSTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.left;
+        }
+        return parent;
     }
 
 }
