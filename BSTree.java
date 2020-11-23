@@ -251,6 +251,9 @@ public class BSTree extends Tree {
 
     public BSTree getNext()
     { 
+        if (this.parent !=null){
+            return null;
+        }
         if (this.right != null){
             return this.right.getFirst_helper();
         }
