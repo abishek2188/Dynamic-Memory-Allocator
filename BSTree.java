@@ -274,7 +274,6 @@ public class BSTree extends Tree {
             current = current.parent;
         }
         if (current.parent != null){
-            System.out.println("getNext is:" + current.parent.key + " "+ current.parent.address);
             return current.parent;
         }
         return null;
