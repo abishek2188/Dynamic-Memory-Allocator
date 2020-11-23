@@ -165,7 +165,12 @@ public class BSTree extends Tree {
                 current.key = temp.key;
                 current.size = temp.size;
                 current.address = temp.address;
-                temp.parent.left = temp.right;
+                if (temp.parent == current){
+                    current.right = temp.right;
+                }
+                else{
+                    temp.parent.left = temp.right;
+                }
                 if (temp.right != null){
                     temp.right.parent = temp.parent;
                 }
