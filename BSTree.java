@@ -200,7 +200,13 @@ public class BSTree extends Tree {
         if (exact ==true){
             while(current != null){
                 if (current.key == key){
-                    return current;
+                    BSTree x = current.Find_rec(key, true);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
                 }
                 else if (current.key > key){
                     current=current.left;
@@ -213,7 +219,13 @@ public class BSTree extends Tree {
         else{
             while(current != null){
                 if (current.key >= key){
-                    return current;
+                    BSTree x = current.Find_rec(key, false);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
                 }
                 else{
                     current=current.right;
@@ -279,6 +291,51 @@ public class BSTree extends Tree {
             current = current.left;
         }
         return parent;
+    }
+
+    private BSTree Find_rec(int key, boolean exact)
+    {
+        BSTree current = this.left;
+        if (current == null){
+            return null;
+        }
+        if (exact ==true){
+            while(current != null){
+                if (current.key == key){
+                    BSTree x = current.Find_rec(key, true);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                    
+                }
+                else if (current.key > key){
+                    current=current.left;
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        else{
+            while(current != null){
+                if (current.key >= key){
+                    BSTree x = current.Find_rec(key, false);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        return null;
     }
 
 }
