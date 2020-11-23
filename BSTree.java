@@ -170,35 +170,35 @@ public class BSTree extends Tree {
                     temp.right.parent = temp.parent;
                 }
                 //below code for this.delete(this)                
-                if (temp == current.right){
-                    direction1 = direction;
-                }
-                else if(temp == current.right.left){
-                    direction1 = 0;
-                }
-                else{
-                    direction1 = 1;
-                }
-                current = temp;
+            //     if (temp == current.right){
+            //         direction1 = direction;
+            //     }
+            //     else if(temp == current.right.left){
+            //         direction1 = 0;
+            //     }
+            //     else{
+            //         direction1 = 1;
+            //     }
+            //     current = temp;
 
-            }
-            if (this == current){   //code for this.delete(this)
-                parent = current.parent;
-                current.parent = parent.parent;
-                current.key = parent.key;
-                current.left = parent.left;
-                current.right = parent.right;
-                current.address = parent.address;
-                current.size = parent.size;
-                if (parent.parent != null){
-                    if (direction1 == 1){
-                        parent.parent.left = current;
-                    }
-                    else{
-                        parent.parent.right = current;
-                    }
-                }
-            }
+            // }
+            // if (this == current){   //code for this.delete(this)
+            //     parent = current.parent;
+            //     current.parent = parent.parent;
+            //     current.key = parent.key;
+            //     current.left = parent.left;
+            //     current.right = parent.right;
+            //     current.address = parent.address;
+            //     current.size = parent.size;
+            //     if (parent.parent != null){
+            //         if (direction1 == 1){
+            //             parent.parent.left = current;
+            //         }
+            //         else{
+            //             parent.parent.right = current;
+            //         }
+            //     }
+            // }
             return true;
         }
         return false;
