@@ -1,6 +1,6 @@
 // Class: Implementation of BST in A2
 // Implement the following functions according to the specifications provided in Tree.java
-
+import java.util.Stack;
 public class BSTree extends Tree {
 
     private BSTree left, right;     // Children.
@@ -287,7 +287,41 @@ public class BSTree extends Tree {
 
     public boolean sanity()
     { 
-        return false;
+        BSTree slow = this;
+        BSTree fast = this;
+        while (fast !=null && fast.parent != null){
+            fast=fast.parent.parent;
+            slow=slow.parent;
+            if (slow==fast){
+                return false;
+            }
+        }
+
+        BSTree root = this.findRoot().right;
+        if(root==null){
+            return true;
+        }
+        Stack<BSTree> bsStack = new Stack<BSTree>();
+        bsStack.push(root);
+        while (bsStack.empty() == false){
+            BSTree x = bsStack.pop();
+            if (x.left.parent != x || x.right.parent != x){
+                return false;
+            }
+            if (x.right != null){
+                if (x.right.parent != x){
+                    return false;
+                }
+                bsStack.push(x.right);
+            }
+            if (x.left != null){
+                if (x.left.parent != x){
+                    return false;
+                }
+                bsStack.push(x.left);
+            }
+        }
+        return true;
     }
 
     private BSTree findRoot()
