@@ -297,19 +297,23 @@ public class BSTree extends Tree {
             }
         }
 
-        BSTree root = this.findRoot().right;
-        if(root==null){
+        BSTree root = this.findRoot();
+        if(root.right==null){
             return true;
         }
+        BSTree current = root.right;
+        if (current.parent != root){
+            return false;
+        }
         Stack<BSTree> bsStack = new Stack<BSTree>();
-        bsStack.push(root);
+        bsStack.push(current);
         while (bsStack.empty() == false){
             BSTree x = bsStack.pop();
-            if (x.left.parent != x || x.right.parent != x){
-                return false;
-            }
             if (x.right != null){
                 if (x.right.parent != x){
+                    return false;
+                }
+                if (!x.isLessthan(x.right)){
                     return false;
                 }
                 bsStack.push(x.right);
@@ -318,9 +322,30 @@ public class BSTree extends Tree {
                 if (x.left.parent != x){
                     return false;
                 }
+                if (!x.isGreaterthan(x.left)){
+                    return false;
+                }
                 bsStack.push(x.left);
             }
         }
+        bsStack = new Stack<BSTree>();
+        bsStack.push(current);
+        while (bsStack.empty() == false){
+            BSTree x = bsStack.pop();
+            if (x.right != null){
+                if (!x.isLessthan(x.right.getFirst_helper())){
+                    return false;
+                }
+                bsStack.push(x.right);
+            }
+            if (x.left != null){
+                if (!x.isGreaterthan(x.left.getLast_helper())){
+                    return false;
+                }
+                bsStack.push(x.left);
+            }
+        }
+
         return true;
     }
 
@@ -344,6 +369,20 @@ public class BSTree extends Tree {
         while (current != null){
             parent = current;
             current = current.left;
+        }
+        return parent;
+    }
+
+    private BSTree getLast_helper()
+    {
+        BSTree current = this;
+        if (current.parent == null){
+            current = current.right;
+        }
+        BSTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.right;
         }
         return parent;
     }
@@ -393,6 +432,69 @@ public class BSTree extends Tree {
         return null;
     }
 
+    private boolean isLessthan(BSTree child){
+        int key = child.key;
+        int address = child.address;
+        int size = child.size;
+        BSTree current = this;
+        if (current.key>key){
+            return false;
+        }
+        else if (current.key<key){
+            return true;
+        }
+        else{
+            if (current.address>address){
+                return false;
+            }
+            else if (current.address<address){
+                return true;
+            }
+            else{
+                if (current.size>size){
+                    return false;
+                }
+                else if (current.size<size){
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+    }
+
+    private boolean isGreaterthan(BSTree child){
+        int key = child.key;
+        int address = child.address;
+        int size = child.size;
+        BSTree current = this;
+        if (current.key>key){
+            return true;
+        }
+        else if (current.key<key){
+            return false;
+        }
+        else{
+            if (current.address>address){
+                return true;
+            }
+            else if (current.address<address){
+                return false;
+            }
+            else{
+                if (current.size>size){
+                    return true;
+                }
+                else if (current.size<size){
+                    return false;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+    }
 }
 
 
