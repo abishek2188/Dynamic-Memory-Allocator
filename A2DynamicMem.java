@@ -59,12 +59,14 @@ public class A2DynamicMem extends A1DynamicMem {
         Dictionary x = freeBlk.Find(blockSize, false);
         if (x!=null){
             allocBlk.Insert(x.address, blockSize, x.address);
+            int address1 = x.address;
+            int size1 = x.size;
             freeBlk.Delete(x);
-            int t = x.size - blockSize;
+            int t = size1 - blockSize;
             if (t>0){
-                freeBlk.Insert(x.address+blockSize,t,t);
+                freeBlk.Insert(address1+blockSize,t,t);
             }
-            return x.address;
+            return address1;
         }
         else{
             return -1;
