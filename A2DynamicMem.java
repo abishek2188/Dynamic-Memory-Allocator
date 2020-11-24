@@ -29,12 +29,14 @@ public class A2DynamicMem extends A1DynamicMem {
             Dictionary y = x.getNext();
             while(y != null){
                 if (y.address == endcheck){
-                    freeBlk.Delete(x);
+                    Dictionary temp = new BSTree(x.address,x.size,x.size);
+                    freeBlk.Delete(temp);
                     endcheck = endcheck + y.size;
                 }
                 else{
                     if (endcheck - start != x.size){
-                        freeBlk.Delete(x);
+                        Dictionary temp = new BSTree(x.address,x.size,x.size);
+                        freeBlk.Delete(temp);
                         freeBlk.Insert(start, endcheck - start, endcheck - start); 
                     }
                     start = y.address;
@@ -44,7 +46,8 @@ public class A2DynamicMem extends A1DynamicMem {
                 y = y.getNext();
             }
             if(endcheck - start != x.size){
-                freeBlk.Delete(x);
+                Dictionary temp = new BSTree(x.address,x.size,x.size);
+                freeBlk.Delete(temp);
                 freeBlk.Insert(start, endcheck - start, endcheck - start);
             }
         }
