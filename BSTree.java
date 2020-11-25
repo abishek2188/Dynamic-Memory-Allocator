@@ -320,6 +320,9 @@ public class BSTree extends Tree {
         }
 
         BSTree root = this.findRoot();
+        if(root.key!=-1 || root.address !=-1 || root.size != -1){
+            return false;
+        }
         if(root.right==null){
             return true;
         }
