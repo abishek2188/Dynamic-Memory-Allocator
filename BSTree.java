@@ -86,6 +86,9 @@ public class BSTree extends Tree {
 
     public boolean Delete(Dictionary e)
     { 
+        if (e==null){
+            return false;
+        }
         BSTree root = this.findRoot();
         BSTree parent = root;
         BSTree current = parent.right;
@@ -161,31 +164,50 @@ public class BSTree extends Tree {
                 }
             }
             else{
+                // BSTree temp = current.right.getFirst_helper();
+                // current.key = temp.key;
+                // current.size = temp.size;
+                // current.address = temp.address;
+                // if (temp.parent == current){
+                //     current.right = temp.right;
+                // }
+                // else{
+                //     temp.parent.left = temp.right;
+                // }
+                // if (temp.right != null){
+                //     temp.right.parent = temp.parent;
+                // }
+                // //below code for this.delete(this)                
+                // if (temp.parent == current){
+                //     direction1 = direction;
+                // }
+                // else if(temp.parent.parent == current){
+                //     direction1 = 0;
+                // }
+                // else{
+                //     direction1 = 1;
+                // }
+                // current = temp;
+                
                 BSTree temp = current.right.getFirst_helper();
-                current.key = temp.key;
-                current.size = temp.size;
-                current.address = temp.address;
-                if (temp.parent == current){
-                    current.right = temp.right;
-                }
-                else{
+                current.left.parent = temp;
+                temp.left = current.left;
+                if (temp.parent != current){
                     temp.parent.left = temp.right;
+                    if (temp.right !=null){
+                        temp.right.parent = temp.parent;
+                    }
+                    temp.right = current.right;
+                    current.right.parent = temp;
                 }
-                if (temp.right != null){
-                    temp.right.parent = temp.parent;
-                }
-                //below code for this.delete(this)                
-                if (temp.parent == current){
-                    direction1 = direction;
-                }
-                else if(temp.parent.parent == current){
-                    direction1 = 0;
+                if (direction == 1){
+                    parent.left = temp;
                 }
                 else{
-                    direction1 = 1;
+                    parent.right = temp;
                 }
-                current = temp;
-
+                temp.parent = parent;
+                
             }
             if (this == current){   //code for this.delete(this)
                 parent = current.parent;
