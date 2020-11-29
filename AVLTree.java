@@ -125,6 +125,195 @@ public class AVLTree extends BSTree {
 
     public boolean Delete(Dictionary e)
     {
+        if (e==null){
+            return false;
+        }
+        AVLTree root = this.findRoot();
+        AVLTree parent = root;
+        AVLTree current = parent.right;
+        AVLTree deleteParent = new AVLTree();
+        int address = e.address;
+        int size = e.size;
+        int key = e.key;
+        int direction = 0;  //direction is 0 if current is right child of parent, 1 if current is left child of parent
+        int direction1 = 0; //direction1 for this.delete(this)
+        int direction2;
+        while (current != null){
+            direction2 = direction1;
+            direction1 = direction;
+            parent = current;
+            if (current.key>key){
+                current=current.left;
+                direction = 1;
+            }
+            else if (current.key<key){
+                current=current.right;
+                direction = 0;
+            }
+            else{
+                if (current.address>address){
+                    current=current.left;
+                    direction = 1;
+                }
+                else if (current.address<address){
+                    current=current.right;
+                    direction = 0;
+                }
+                else{
+                    if (current.size>size){
+                        current=current.left;
+                        direction = 1;
+                    }
+                    else if (current.size<size){
+                        current=current.right;
+                        direction = 0;
+                    }
+                    else{
+                        direction1 = direction2;
+                        parent = current.parent;
+                        deleteParent = parent;
+                        break;
+                    }
+                }
+            }
+        }
+        if (current != null){
+            if (current.left == null && current.right == null){
+                if (direction == 1){
+                    parent.left = current.right;
+                }
+                else{
+                    parent.right = current.right;
+                }
+            }
+            else if (current.left == null){
+                current.right.parent = parent;
+                if (direction == 1){
+                    parent.left = current.right;
+                }
+                else{
+                    parent.right = current.right;                    
+                }
+            }
+            else if (current.right == null){
+                current.left.parent = parent;
+                if (direction == 1){
+                    parent.left = current.left;
+                }
+                else{
+                    parent.right = current.left;
+                }
+            }
+            else{
+                // AVLTree temp = current.right.getFirst_helper();
+                // current.key = temp.key;
+                // current.size = temp.size;
+                // current.address = temp.address;
+                // if (temp.parent == current){
+                //     current.right = temp.right;
+                // }
+                // else{
+                //     temp.parent.left = temp.right;
+                // }
+                // if (temp.right != null){
+                //     temp.right.parent = temp.parent;
+                // }
+                // //below code for this.delete(this)                
+                // if (temp.parent == current){
+                //     direction1 = direction;
+                // }
+                // else if(temp.parent.parent == current){
+                //     direction1 = 0;
+                // }
+                // else{
+                //     direction1 = 1;
+                // }
+                // current = temp;
+                
+                AVLTree temp = current.right.getFirst_helper();
+                current.left.parent = temp;
+                temp.left = current.left;
+                if (temp.parent != current){
+                    deleteParent = temp.parent;
+                    temp.parent.left = temp.right;
+                    if (temp.right !=null){
+                        temp.right.parent = temp.parent;
+                    }
+                    temp.right = current.right;
+                    current.right.parent = temp;
+                }
+                if (direction == 1){
+                    parent.left = temp;
+                }
+                else{
+                    parent.right = temp;
+                }
+                temp.parent = parent;
+                
+            }
+            if (this == current){   //code for this.delete(this)
+                if (deleteParent == current.parent){
+                    deleteParent = current;
+                }
+                parent = current.parent;
+                current.parent = parent.parent;
+                current.key = parent.key;
+                current.left = parent.left;
+                current.right = parent.right;
+                current.address = parent.address;
+                current.size = parent.size;
+                if (parent.parent != null){
+                    if (direction1 == 1){
+                        parent.parent.left = current;
+                    }
+                    else{
+                        parent.parent.right = current;
+                    }
+                }
+                if (parent.left != null){
+                    parent.left.parent = current;
+                }
+                if (parent.right != null){
+                    parent.right.parent = current;
+                }
+            }
+
+            AVLTree z = deleteParent;
+            while(z.parent != null){
+                int balance = height(z.left) - height(z.right);
+                if (balance > 1){
+                    AVLTree y = z.left;
+                    if (height(y.left)>height(y.right)){
+                        rightRotate(z);
+                        z=y;
+                    }
+                    else{
+                        leftRotate(y);
+                        rightRotate(z);
+                        z=y.right;
+                    }
+                }
+                else if (balance < -1){
+                    AVLTree y = z.right;
+                    if (height(y.right)>height(y.left)){
+                        leftRotate(z);
+                        z=y;
+                    }
+                    else{
+                        rightRotate(y);
+                        leftRotate(z);
+                        z = y.left;
+                    }
+                }
+                else{
+                    z.height = Math.max(height(z.left),height(z.right)) + 1;
+                }
+                z = z.parent;
+            
+            }
+            
+            return true;
+        }
         return false;
     }
         
@@ -272,6 +461,20 @@ public class AVLTree extends BSTree {
                 }
             }
         }
+    }
+
+    private AVLTree getFirst_helper()
+    { 
+        AVLTree current = this;
+        if (current.parent == null){
+            current = current.right;
+        }
+        AVLTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.left;
+        }
+        return parent;
     }
 }
 
