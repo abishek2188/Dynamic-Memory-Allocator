@@ -1,6 +1,6 @@
 // Class: Height balanced AVL Tree
 // Binary Search Tree
-
+import java.util.Stack;
 public class AVLTree extends BSTree {
     
     private AVLTree left, right;     // Children. 
@@ -394,9 +394,75 @@ public class AVLTree extends BSTree {
 
     public boolean sanity()
     { 
-        // if (!super.sanity()){
-        //     return false;
-        // }
+        AVLTree slow = this;
+        AVLTree fast = this;
+        while (fast !=null && fast.parent != null){
+            fast=fast.parent.parent;
+            slow=slow.parent;
+            if (slow==fast){
+                return false;
+            }
+        }
+
+        AVLTree root = this.findRoot();
+        if(root.key!=-1 || root.address !=-1 || root.size != -1){
+            return false;
+        }
+        if(root.right==null){
+            return true;
+        }
+        AVLTree current = root.right;
+        if (current.parent != root){
+            return false;
+        }
+        Stack<AVLTree> bsStack = new Stack<AVLTree>();
+        bsStack.push(current);
+        while (bsStack.empty() == false){
+            AVLTree x = bsStack.pop();
+            if (x.height != Math.max(height(x.left),height(x.right))+1){
+                return false;
+            }
+            int balance = height(x.left) - height(x.right);
+            if (balance > 1 || balance < -1){
+                return false;
+            }
+            if (x.right != null){
+                if (x.right.parent != x){
+                    return false;
+                }
+                if (!x.isLessthan(x.right)){
+                    return false;
+                }
+                bsStack.push(x.right);
+            }
+            if (x.left != null){
+                if (x.left.parent != x){
+                    return false;
+                }
+                if (!x.isGreaterthan(x.left)){
+                    return false;
+                }
+                bsStack.push(x.left);
+            }
+        }
+        bsStack = new Stack<AVLTree>();
+        bsStack.push(current);
+        while (bsStack.empty() == false){
+            AVLTree x = bsStack.pop();
+            if (x.right != null){
+                if (!x.isLessthan(x.right.getFirst_helper())){
+                    return false;
+                }
+                bsStack.push(x.right);
+            }
+            if (x.left != null){
+                if (!x.isGreaterthan(x.left.getLast_helper())){
+                    return false;
+                }
+                bsStack.push(x.left);
+            }
+        }
+
         return true;
     }
 
@@ -536,6 +602,20 @@ public class AVLTree extends BSTree {
         while (current != null){
             parent = current;
             current = current.left;
+        }
+        return parent;
+    }
+
+    private AVLTree getLast_helper()
+    {
+        AVLTree current = this;
+        if (current.parent == null){
+            current = current.right;
+        }
+        AVLTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.right;
         }
         return parent;
     }
