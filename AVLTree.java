@@ -89,7 +89,7 @@ public class AVLTree extends BSTree {
             }
         }
         temp.parent = parent;
-        AVLTree z = parent;
+        AVLTree z = temp;
         AVLTree y = z;
         AVLTree x = z;
         while(z.parent != null){
@@ -242,6 +242,9 @@ public class AVLTree extends BSTree {
                     temp.right = current.right;
                     current.right.parent = temp;
                 }
+                else{
+                    deleteParent = temp;
+                }
                 if (direction == 1){
                     parent.left = temp;
                 }
@@ -283,26 +286,28 @@ public class AVLTree extends BSTree {
                 int balance = height(z.left) - height(z.right);
                 if (balance > 1){
                     AVLTree y = z.left;
-                    if (height(y.left)>height(y.right)){
+                    if (height(y.left)>=height(y.right)){
                         rightRotate(z);
                         z=y;
                     }
                     else{
+                        AVLTree temp = y.right;
                         leftRotate(y);
                         rightRotate(z);
-                        z=y.right;
+                        z=temp;
                     }
                 }
                 else if (balance < -1){
                     AVLTree y = z.right;
-                    if (height(y.right)>height(y.left)){
+                    if (height(y.right)>=height(y.left)){
                         leftRotate(z);
                         z=y;
                     }
                     else{
+                        AVLTree temp = y.left;
                         rightRotate(y);
                         leftRotate(z);
-                        z = y.left;
+                        z = temp;
                     }
                 }
                 else{
@@ -317,24 +322,82 @@ public class AVLTree extends BSTree {
         return false;
     }
         
-    // public AVLTree Find(int k, boolean exact)
-    // { 
-    //     return null;
-    // }
+    public AVLTree Find(int k, boolean exact)
+    { 
+        AVLTree current = this.findRoot().right;
+        if (exact ==true){
+            while(current != null){
+                if (current.key == key){
+                    AVLTree x = current.Find_rec(key, true);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                }
+                else if (current.key > key){
+                    current=current.left;
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        else{
+            while(current != null){
+                if (current.key >= key){
+                    AVLTree x = current.Find_rec(key, false);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        return null;
+    }
 
-    // public AVLTree getFirst()
-    // { 
-    //     return null;
-    // }
+    public AVLTree getFirst()
+    { 
+        AVLTree current = this.findRoot().right;
+        AVLTree parent = current;
+        while (current != null){
+            parent = current;
+            current = current.left;
+        }
+        return parent;
+    }
 
-    // public AVLTree getNext()
-    // {
-    //     return null;
-    // }
+    public AVLTree getNext()
+    {
+        if (this.parent == null){
+            return null;
+        }
+        if (this.right != null){
+            return this.right.getFirst_helper();
+        }
+        AVLTree current = this;
+        while(current.parent != null && current.parent.left != current){
+            current = current.parent;
+        }
+        if (current.parent != null){
+            return current.parent;
+        }
+        return null;
+    }
 
     public boolean sanity()
     { 
-        return false;
+        // if (!super.sanity()){
+        //     return false;
+        // }
+        return true;
     }
 
     private AVLTree findRoot()
@@ -475,6 +538,51 @@ public class AVLTree extends BSTree {
             current = current.left;
         }
         return parent;
+    }
+
+    private AVLTree Find_rec(int key, boolean exact)
+    {
+        AVLTree current = this.left;
+        if (current == null){
+            return null;
+        }
+        if (exact ==true){
+            while(current != null){
+                if (current.key == key){
+                    AVLTree x = current.Find_rec(key, true);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                    
+                }
+                else if (current.key > key){
+                    current=current.left;
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        else{
+            while(current != null){
+                if (current.key >= key){
+                    AVLTree x = current.Find_rec(key, false);
+                    if (x==null){
+                        return current;
+                    }
+                    else{
+                        return x;
+                    }
+                }
+                else{
+                    current=current.right;
+                }
+            }
+        }
+        return null;
     }
 }
 
