@@ -322,7 +322,7 @@ public class AVLTree extends BSTree {
         return false;
     }
         
-    public AVLTree Find(int k, boolean exact)
+    public AVLTree Find(int key, boolean exact)
     { 
         AVLTree current = this.findRoot().right;
         if (exact ==true){
