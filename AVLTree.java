@@ -283,6 +283,7 @@ public class AVLTree extends BSTree {
 
             AVLTree z = deleteParent;
             while(z.parent != null){
+                int temp10 = z.height;
                 int balance = height(z.left) - height(z.right);
                 if (balance > 1){
                     AVLTree y = z.left;
@@ -312,6 +313,9 @@ public class AVLTree extends BSTree {
                 }
                 else{
                     z.height = Math.max(height(z.left),height(z.right)) + 1;
+                }
+                if (temp10 == z.height){
+                    break;
                 }
                 z = z.parent;
             
