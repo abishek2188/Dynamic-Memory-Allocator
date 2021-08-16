@@ -8,7 +8,7 @@ public class Driver {
         while (numTestCases-- > 0) {
             int size;
             size = sc.nextInt();
-            A2DynamicMem obj = new A2DynamicMem(size, 2);
+            A2DynamicMem obj = new A2DynamicMem(size, 3);
             int numCommands = sc.nextInt();
             while (numCommands-- > 0) {
                 String command;
@@ -31,8 +31,14 @@ public class Driver {
                     default:
                         break;
                 }
-                assert obj.freeBlk.sanity();
-                assert obj.allocBlk.sanity();
+                if( !obj.freeBlk.sanity()){
+                    System.out.println("insane");
+                    break;
+                }
+                if(!obj.allocBlk.sanity()){
+                    System.out.println("insane");
+                    break;
+                }
                 if (result != -10)
                     System.out.println(result);
                 else

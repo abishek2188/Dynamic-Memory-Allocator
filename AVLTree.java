@@ -241,7 +241,6 @@ public class AVLTree extends BSTree {
                     }
                     temp.right = current.right;
                     current.right.parent = temp;
-                    temp.height = current.height;
                 }
                 else{
                     deleteParent = temp;
@@ -266,7 +265,6 @@ public class AVLTree extends BSTree {
                 current.right = parent.right;
                 current.address = parent.address;
                 current.size = parent.size;
-                current.height = parent.height;
                 if (parent.parent != null){
                     if (direction1 == 1){
                         parent.parent.left = current;
@@ -285,7 +283,6 @@ public class AVLTree extends BSTree {
 
             AVLTree z = deleteParent;
             while(z.parent != null){
-                int temp10 = z.height;
                 int balance = height(z.left) - height(z.right);
                 if (balance > 1){
                     AVLTree y = z.left;
@@ -315,9 +312,6 @@ public class AVLTree extends BSTree {
                 }
                 else{
                     z.height = Math.max(height(z.left),height(z.right)) + 1;
-                }
-                if (temp10 == z.height){
-                    break;
                 }
                 z = z.parent;
             
@@ -425,7 +419,7 @@ public class AVLTree extends BSTree {
         bsStack.push(current);
         while (bsStack.empty() == false){
             AVLTree x = bsStack.pop();
-            if (x.height != (Math.max(height(x.left),height(x.right))+1)){
+            if (x.height != Math.max(height(x.left),height(x.right))+1){
                 return false;
             }
             int balance = height(x.left) - height(x.right);
